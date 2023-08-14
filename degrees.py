@@ -109,36 +109,23 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-    first_person = people[source]
-    source_mvs = first_person['movies']
-    print(source_mvs)
+    first_person_id = people[source]
+    first_person_name = first_person_id['name']
+    source_mvs = first_person_id['movies']
+    print("this is what source looks like: ", source)
+    print("this is what the new first_person looks like: ", first_person_name)
+    second_person_id = people[target]
+    second_person_name = second_person_id['name']
+    target_mvs = second_person_id['movies']
+    print("this is what target looks like: ", target)
+    print("this is what the new second_person looks like: ", second_person_name)
 
-    second_person = people[source]
-    target_mvs = second_person['movies']
-
-
+    connection = []
     for mv in source_mvs:
         if mv in target_mvs: 
-            return(print("Here's your answer to which mv connects them: ", (source, mv)))
-    # for mv in source_mvs:
-    #     print("this is your source movie list experiment: ", mv)
-
-    for i in neighbors_for_person(target):
-        pass
+            connection.append((mv, source))
+    return connection
         
-    # getting the second element (person_id) in each tuple of the lsit.
-    # We'll need this to see for our Goal Test (to see if our element (person_id) is Kevin Bacon / the goal)
-    
-    list_of_tuples = []
-
-    # for player in source:
-    #     if player == 
-    
-
-    second_element = [t[1] for t in list_of_tuples]
-    print(target) # target = second element in tuple
-
-    
     #raise NotImplementedError
 
 
