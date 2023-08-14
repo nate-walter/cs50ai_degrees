@@ -109,6 +109,10 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    person = people[source]
+    source_mvs = person['movies']
+    for mv in source_mvs:
+        print("this is your source movie list experiment: ", mv)
 
     for i in neighbors_for_person(target):
         pass
