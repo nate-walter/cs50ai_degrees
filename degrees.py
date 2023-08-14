@@ -99,6 +99,7 @@ def main():
             person2 = people[path[i + 1][1]]["name"]
             movie = movies[path[i + 1][0]]["title"]
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
+            #print("The line in question in main():", people[path[i + 1][1]]["name"])
 
 
 def shortest_path(source, target):
@@ -113,16 +114,17 @@ def shortest_path(source, target):
     first_person_name = first_person_id['name']
     source_mvs = first_person_id['movies']
     print("this is what source looks like: ", source)
-    print("this is what the new first_person looks like: ", first_person_name)
+    print("this is the first_person_name variable result: ", first_person_name)
     second_person_id = people[target]
-    second_person_name = second_person_id['name']
+    second_person_name = second_person_id['name'] # Can comment this line out
     target_mvs = second_person_id['movies']
     print("this is what target looks like: ", target)
-    print("this is what the new second_person looks like: ", second_person_name)
+    print("this is the second_person variable result: ", second_person_name)
 
     connection = []
     for mv in source_mvs:
         if mv in target_mvs: 
+            connection.append((mv, target))
             connection.append((mv, source))
     return connection
         
