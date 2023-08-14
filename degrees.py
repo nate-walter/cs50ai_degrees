@@ -4,6 +4,7 @@ import sys
 from util import Node, StackFrontier, QueueFrontier
 
 # Maps names to a set of corresponding person_ids
+# 'kevin bacon': {'102}
 names = {}
 
 # Maps person_ids to a dictionary of: name, birth, movies (a set of movie_ids)
@@ -30,6 +31,12 @@ def load_data(directory):
                 names[row["name"].lower()] = {row["id"]}
             else:
                 names[row["name"].lower()].add(row["id"])
+    
+    # print(names)
+    
+    # names is populated at this point with all actors
+
+    #print("this is me printing the contents of names", [name for name in names])
 
     # Load movies
     with open(f"{directory}/movies.csv", encoding="utf-8") as f:
@@ -40,6 +47,11 @@ def load_data(directory):
                 "year": row["year"],
                 "stars": set()
             }
+            print(movies)
+            print(len(movies))
+            print(movies[row['id']])
+            print(len(movies))
+            print(movies[row['id']]['title'])
 
     # Load stars
     with open(f"{directory}/stars.csv", encoding="utf-8") as f:
@@ -85,6 +97,7 @@ def main():
 
 
 def shortest_path(source, target):
+    print("you're in shortest_path func")
     """
     Returns the shortest list of (movie_id, person_id) pairs
     that connect the source to the target.
@@ -92,8 +105,23 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
 
-    # TODO
-    raise NotImplementedError
+    for i in neighbors_for_person(target):
+        pass
+        
+    # getting the second element (person_id) in each tuple of the lsit.
+    # We'll need this to see for our Goal Test (to see if our element (person_id) is Kevin Bacon / the goal)
+    
+    list_of_tuples = []
+
+    # for player in source:
+    #     if player == 
+    
+
+    second_element = [t[1] for t in list_of_tuples]
+    print(target) # target = second element in tuple
+
+    
+    #raise NotImplementedError
 
 
 def person_id_for_name(name):
@@ -127,6 +155,8 @@ def neighbors_for_person(person_id):
     Returns (movie_id, person_id) pairs for people
     who starred with a given person.
     """
+    print("You're in neighbors_for_person")
+
     movie_ids = people[person_id]["movies"]
     neighbors = set()
     for movie_id in movie_ids:
