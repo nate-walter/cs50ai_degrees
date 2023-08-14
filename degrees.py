@@ -32,7 +32,9 @@ def load_data(directory):
             else:
                 names[row["name"].lower()].add(row["id"])
     
-    # print(names)
+    #print("Here's you list of movies exdperiment result: ", people[row['id']]['movies'])
+    
+    #print(names)
     
     # names is populated at this point with all actors
 
@@ -47,11 +49,14 @@ def load_data(directory):
                 "year": row["year"],
                 "stars": set()
             }
-            print(movies)
-            print(len(movies))
-            print(movies[row['id']])
-            print(len(movies))
-            print(movies[row['id']]['title'])
+            
+
+            #"Uncomment to see what this whole 'MOVIES' thing is about"
+            # print(movies)
+            # print(len(movies))
+            # print(movies[row['id']])
+            # print(len(movies))
+            # print(movies[row['id']]['title'])
 
     # Load stars
     with open(f"{directory}/stars.csv", encoding="utf-8") as f:
