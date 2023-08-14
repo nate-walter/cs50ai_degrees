@@ -124,8 +124,9 @@ def shortest_path(source, target):
     connection = []
     for mv in source_mvs:
         if mv in target_mvs: 
+
             connection.append((mv, target))
-            connection.append((mv, source))
+            #connection.append((mv, source))
     return connection
         
     #raise NotImplementedError
