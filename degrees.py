@@ -122,13 +122,35 @@ def shortest_path(source, target):
     print("this is the second_person variable result: ", second_person_name)
 
     connection = []
+    next_door = neighbors_for_person(source)
+    
     for mv in source_mvs:
         if mv in target_mvs: 
-
             connection.append((mv, target))
-            #connection.append((mv, source))
-    return connection
+            #connection.append((mv, source)) 
+            # # the abvline outputs if uncommented
+            # 2 degrees of separation.
+            # 1: Tom Hanks and Kevin Bacon starred in Apollo 13
+            # 2: Kevin Bacon and Tom Hanks starred in Apollo 13
+        elif mv not in target_mvs:
+            for things in next_door:
+                nxt_source = people[things[1]] # Gets u Gary Senise
+                nxt_source_id = things[1]
+                print("Tcds is the nxt_source var: ", nxt_source)
+                nxt_source_mvs = people[nxt_source_id]['movies']
+                print("this is nxt_source_mvs var ", nxt_source_mvs)
+                for nxt_mv in nxt_source_mvs:
+                    if nxt_mv in target_mvs:
+                        connection.append((nxt_mv, target))
+                print("Here is a person's id that source is connected with - var things[1]?:", things[1])
+                print()
+
+    #return connection    
+
+        return connection
         
+
+
     #raise NotImplementedError
 
 
