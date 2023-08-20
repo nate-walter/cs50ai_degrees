@@ -110,49 +110,47 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-    first_person_id = people[source]
-    first_person_name = first_person_id['name']
-    source_mvs = first_person_id['movies']
-    print("this is what source looks like: ", source)
-    print("this is the first_person_name variable result: ", first_person_name)
-    second_person_id = people[target]
-    second_person_name = second_person_id['name'] # Can comment this line out
-    target_mvs = second_person_id['movies']
-    print("this is what target looks like: ", target)
-    print("this is the second_person variable result: ", second_person_name)
+    from collections import deque
+    # Each item in the queue will be a tuple: (person_id, movie_id they were found by)
+    queue = deque([(source, None)])
+    visited = set() # Keep track of explored nodes to avoid loops
+    previous = {} # A dictionary to remember how we reached each person (which movie and actor led to them)
 
-    connection = []
-    next_door = neighbors_for_person(source)
-    
-    for mv in source_mvs:
-        if mv in target_mvs: 
-            connection.append((mv, target))
-            #connection.append((mv, source)) 
-            # # the abvline outputs if uncommented
-            # 2 degrees of separation.
-            # 1: Tom Hanks and Kevin Bacon starred in Apollo 13
-            # 2: Kevin Bacon and Tom Hanks starred in Apollo 13
-        elif mv not in target_mvs:
-            for things in next_door:
-                nxt_source = people[things[1]] # Gets u Gary Senise
-                nxt_source_id = things[1]
-                print("Tcds is the nxt_source var: ", nxt_source)
-                nxt_source_mvs = people[nxt_source_id]['movies']
-                print("this is nxt_source_mvs var ", nxt_source_mvs)
-                for nxt_mv in nxt_source_mvs:
-                    if nxt_mv in target_mvs:
-                        connection.append((nxt_mv, target))
-                print("Here is a person's id that source is connected with - var things[1]?:", things[1])
-                print()
+    while queue:
+        person_id, movie_id = queue.popleft()
+        print(f"Exploring {person_id=}, through {movie_id=}") # Debug print
 
-    #return connection    
-
-        return connection
+        # If this person is the target, then we can exit the BFS loop
+        if person_id == target:
+            print(f"Found {target}!")
+            break
         
-
-
-    #raise NotImplementedError
-
+        visited.add(person_id)
+        
+        for m_id, co_actor_id in neighbors_for_person(person_id):
+            if co_actor_id not in visited and co_actor_id not in [person[0] for person in queue]:
+                queue.append((co_actor_id, m_id))
+                if co_actor_id not in previous:
+                    previous[co_actor_id] = (person_id, m_id)
+                
+    # If target was found and added to the previous dict.
+    if target in previous:
+        path =[]
+        current = target
+        
+        while current != source:
+            print(f"previous[641] = {previous.get('641', 'Not found')}")
+            print(f"Backtracking: {current=}") # Debug print
+            
+            person_from, movie_id = previous[current]
+            
+            path.insert(0, (movie_id, current))
+            
+            current = person_from
+        
+        return path
+    else:
+        return None
 
 def person_id_for_name(name):
     """
