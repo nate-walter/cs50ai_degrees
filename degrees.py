@@ -111,10 +111,9 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
     from collections import deque
-    # Each item in the queue will be a tuple: (person_id, movie_id they were found by)
-    queue = deque([(source, None)])
+    queue = deque([(source, None)]) # Each item in the queue will be a tuple: (person_id, movie_id they were found by)
     visited = set() # Keep track of explored nodes to avoid loops
-    previous = {} # A dictionary to remember how we reached each person (which movie and actor led to them)
+    previous = {} # A dictionary to remember how we reached each person (which actor, movie led to them)
 
     while queue:
         person_id, movie_id = queue.popleft()
@@ -139,8 +138,8 @@ def shortest_path(source, target):
         current = target
         
         while current != source:
-            print(f"previous[641] = {previous.get('641', 'Not found')}")
-            print(f"Backtracking: {current=}") # Debug print
+            print(f"previous Person ID = {previous.get('_', 'Not found')}")
+            print(f"Backtracking: {current= }") # Debug print
             
             person_from, movie_id = previous[current]
             
